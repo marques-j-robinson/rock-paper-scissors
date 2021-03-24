@@ -2,4 +2,4 @@
 
 Project submission for [The Odin Project](https://www.theodinproject.com/dashboard)
 
--[Live Demo](https://marques-j-robinson.github.io/rock-paper-scissors/)
+- [Live Demo](https://marques-j-robinson.github.io/rock-paper-scissors/)
