@@ -1,3 +1,3 @@
 # Rock Paper Scissors
 
-Play rock paper scissors against a computer in the browser.
+Project submission for [The Odin Project](https://www.theodinproject.com/dashboard)
