@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <div class="buttons"></div>
+    <div class="results">
+        <p>
+            Player Score:
+            <span class="player-score"></span>
+        </p>
+        <p>
+            Computer Score:
+            <span class="com-score"></span>
+        </p>
+        <p class="message"></p>
+    </div>
+    <script>
+        // Globals
+        let gameCount = 0
+        const maxGames = 5
+        const vals = ['rock', 'paper', 'scissors']
+        const msgEl = document.querySelector('.message')
+
+        function computerPlay() {
+            const idx = Math.floor(Math.random() * Math.floor(3))
+            return vals[idx]
+        }
+
+        function getVictoryCondition(res) {
+            const re = new RegExp('(Win)')
+            const match = re.exec(res)
+            return !!match
+        }
+        
+        // Score
+        let playerScore = 0
+        let comScore = 0
+        const resultsEl = document.querySelector('.results')
+        const playerScoreEl = document.querySelector('.player-score')
+        playerScoreEl.textContent = playerScore
+        const comScoreEl = document.querySelector('.com-score')
+        comScoreEl.textContent = comScore
+
+        
+        // Define buttons
+        const buttonsEl = document.querySelector('.buttons')
+        const buttons = vals.map(type => {
+            const btn = document.createElement('button')
+            btn.onclick = () => {
+                gameCount += 1
+                const round = playRound(type, computerPlay())
+                if (round === 'tie') {
+                    playerScore += 0.5
+                    comScore += 0.5
+                } else if (getVictoryCondition(round)) {
+                    playerScore += 1            
+                } else {
+                    comScore += 1
+                }
+                playerScoreEl.textContent = playerScore
+                comScoreEl.textContent = comScore
+
+                if (gameCount >= maxGames) {
+                    if (playerScore === comScore) {
+                        msgEl.textContent = 'Tie!'
+                    } else if (playerScore > comScore) {
+                        msgEl.textContent = 'Player Wins!'
+                    } else {
+                        msgEl.textContent = 'Computer Wins!'
+                    }
+                }
+            }
+            btn.textContent = type
+            buttonsEl.appendChild(btn)
+        })
+
+        function playRound(playerSelection, computerSelection) {
+            // Handle Tie Case
+            if (playerSelection === computerSelection) {
+                return 'tie'
+            }
+
+            if (playerSelection === 'rock') {
+                if (computerSelection === 'paper') {
+                    return 'You Lose! Paper beats Rock'
+                } else if (computerSelection === 'scissors') {
+                    return 'You Win! Rock beats Scissors'
+                }
+            }
+
+            if (playerSelection === 'paper') {
+                if (computerSelection === 'rock') {
+                    return 'You Win! Paper beats Rock'
+                } else if (computerSelection === 'scissors') {
+                    return 'You Lose! Scissors beats Paper'
+                }
+            }
+
+            if (playerSelection === 'scissors') {
+                if (computerSelection === 'paper') {
+                    return 'You Win! Scissors beats Paper'
+                } else if (computerSelection === 'rock') {
+                    return 'You Lose! Rock beats Scissors'
+                }
+            }
+        }
+    </script>
+</body>
+</html>

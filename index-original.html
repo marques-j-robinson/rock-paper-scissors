@@ -45,7 +45,6 @@
 
         function getVictoryCondition(res) {
             const re = new RegExp('(Win)')
-            console.log(res)
             const match = re.exec(res)
             return !!match
         }
